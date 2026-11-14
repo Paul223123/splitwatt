@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SplitWatt — Fair Energy Split</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -23,21 +23,20 @@
   --red-dim: rgba(239,68,68,0.15);
   --yellow: #F59E0B;
   --yellow-dim: rgba(245,158,11,0.15);
+  --content-width: 1100px;
+  --sidebar-width: 340px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{min-height:100vh;font-family:'Inter',system-ui,sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
 
 /* ── ANIMATED GRADIENT BG ── */
 body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  z-index:0;
+  content:'';position:fixed;inset:0;z-index:0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(245,98,15,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(245,98,15,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 100% at 50% 50%, #0A0A0A 0%, #0A0A0A 100%);
-  animation: bgShift 8s ease-in-out infinite alternate;
+    radial-gradient(ellipse 80% 60% at 20% 20%,rgba(245,98,15,0.12) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%,rgba(245,98,15,0.08) 0%,transparent 60%),
+    #0A0A0A;
+  animation:bgShift 8s ease-in-out infinite alternate;
   pointer-events:none;
 }
 @keyframes bgShift{
@@ -47,17 +46,23 @@ body::before{
 }
 
 /* ── LAYOUT ── */
-.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 20px 60px;}
+.wrap{
+  position:relative;z-index:1;
+  max-width:var(--content-width);
+  margin:0 auto;
+  padding:0 24px 80px;
+}
 
 /* ── NAV ── */
 nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:20px 0 0;margin-bottom:0;
+  padding:24px 0 0;margin-bottom:0;
 }
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo img{height:36px;width:auto;}
 .logo-text{font-size:18px;font-weight:900;color:var(--white);letter-spacing:-0.5px;}
 .logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:16px;}
 .nav-badge{
   font-size:10px;font-weight:700;color:var(--orange);
   border:1px solid var(--orange);border-radius:20px;
@@ -65,7 +70,7 @@ nav{
 }
 
 /* ── HERO ── */
-.hero{padding:48px 0 40px;animation:fadeUp 0.6s ease both;}
+.hero{padding:56px 0 44px;animation:fadeUp 0.6s ease both;}
 .hero-eyebrow{
   font-size:11px;font-weight:700;color:var(--orange);
   letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;
@@ -73,16 +78,17 @@ nav{
 }
 .hero-eyebrow::before{content:'';width:24px;height:2px;background:var(--orange);display:inline-block;}
 .hero h1{
-  font-size:clamp(32px,9vw,52px);font-weight:900;line-height:1.0;
+  font-size:clamp(32px,5vw,60px);font-weight:900;line-height:1.0;
   letter-spacing:-2px;color:var(--white);margin-bottom:16px;
 }
 .hero h1 .accent{color:var(--orange);}
-.hero p{font-size:15px;color:var(--gray);line-height:1.6;margin-bottom:32px;max-width:360px;}
+.hero p{font-size:16px;color:var(--gray);line-height:1.6;margin-bottom:32px;max-width:520px;}
 
 /* ── TRUST STRIP ── */
 .trust-strip{
-  display:flex;gap:20px;margin-bottom:40px;
+  display:flex;gap:28px;margin-bottom:40px;
   border-top:1px solid var(--border);padding-top:24px;
+  flex-wrap:wrap;
 }
 .trust-item{display:flex;align-items:center;gap:8px;}
 .trust-icon{font-size:14px;}
@@ -94,28 +100,36 @@ nav{
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
 /* ── MODE CARDS ── */
-.mode-cards{display:flex;flex-direction:column;gap:12px;}
+.mode-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  max-width:860px;
+}
 .mode-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;padding:20px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:24px;
   cursor:pointer;transition:all 0.2s ease;
-  display:flex;align-items:center;gap:16px;
-  text-decoration:none;
+  display:flex;flex-direction:column;gap:16px;
   animation:fadeUp 0.5s ease both;
 }
 .mode-card:nth-child(2){animation-delay:0.08s;}
-.mode-card:hover{border-color:var(--orange);background:var(--card2);transform:translateY(-1px);}
+.mode-card:hover{border-color:var(--orange);background:var(--card2);transform:translateY(-2px);}
+.mode-card-top{display:flex;align-items:center;gap:14px;}
 .mode-card-icon{
-  width:48px;height:48px;border-radius:12px;
+  width:52px;height:52px;border-radius:12px;
   background:rgba(245,98,15,0.1);border:1px solid rgba(245,98,15,0.2);
   display:flex;align-items:center;justify-content:center;
-  font-size:22px;flex-shrink:0;
+  font-size:24px;flex-shrink:0;
 }
-.mode-card-body{flex:1;}
-.mode-card-label{font-size:15px;font-weight:800;color:var(--white);margin-bottom:4px;letter-spacing:-0.3px;}
-.mode-card-desc{font-size:12px;color:var(--gray);line-height:1.4;}
-.mode-card-arrow{font-size:18px;color:var(--orange);flex-shrink:0;}
+.mode-card-label{font-size:16px;font-weight:800;color:var(--white);letter-spacing:-0.3px;}
+.mode-card-desc{font-size:13px;color:var(--gray);line-height:1.5;}
+.mode-card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--border);padding-top:14px;margin-top:4px;
+}
+.mode-card-action{font-size:12px;font-weight:700;color:var(--orange);}
+.mode-card-arrow{font-size:18px;color:var(--orange);}
 
 /* ── BACK ── */
 .back-btn{
@@ -128,13 +142,19 @@ nav{
 /* ── SECTION LABEL ── */
 .section-label{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
 
+/* ── DESKTOP TWO-COLUMN LAYOUT FOR FORMS ── */
+.form-layout{
+  display:grid;
+  gap:16px;
+}
+
 /* ── CARD ── */
 .card{
   background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:20px;margin-bottom:12px;
+  border-radius:16px;padding:24px;margin-bottom:0;
   animation:fadeUp 0.4s ease both;
 }
-.card-title{font-size:14px;font-weight:800;color:var(--white);margin-bottom:16px;letter-spacing:-0.3px;}
+.card-title{font-size:14px;font-weight:800;color:var(--white);margin-bottom:18px;letter-spacing:-0.3px;}
 
 /* ── INPUTS ── */
 label{display:block;font-size:11px;font-weight:700;color:var(--gray);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;}
@@ -147,19 +167,19 @@ input[type="number"],input[type="text"],textarea,select{
 }
 input:focus,textarea:focus,select:focus{border-color:var(--orange);}
 select option{background:#1E1E1E;color:var(--white);}
-textarea{resize:none;line-height:1.6;}
+textarea{resize:vertical;line-height:1.6;}
 .input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .input-group{margin-bottom:14px;}
 
 /* ── PERSON CARD ── */
 .person-card{
   border:1px solid var(--border);border-radius:12px;
-  padding:14px;margin-bottom:10px;position:relative;
+  padding:16px;margin-bottom:10px;position:relative;
   transition:border-color 0.15s;background:#111;
 }
 .person-card:focus-within{border-color:var(--orange);}
 .person-num{font-size:10px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-.remove-btn{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--gray2);font-size:16px;cursor:pointer;line-height:1;padding:2px;transition:color 0.15s;}
+.remove-btn{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--gray2);font-size:16px;cursor:pointer;line-height:1;padding:2px;transition:color 0.15s;}
 .remove-btn:hover{color:var(--red);}
 
 /* ── BUTTONS ── */
@@ -196,7 +216,7 @@ textarea{resize:none;line-height:1.6;}
 .btn-secondary:hover{border-color:var(--white);color:var(--white);}
 
 /* ── LOADING ── */
-.loading{display:none;text-align:center;padding:40px 20px;}
+.loading{display:none;text-align:center;padding:60px 20px;}
 .loading.visible{display:block;}
 .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--orange);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -218,11 +238,11 @@ textarea{resize:none;line-height:1.6;}
 /* ── RESULT HEADER ── */
 .result-header{
   background:var(--card);border:1px solid var(--border);
-  border-radius:16px 16px 0 0;padding:24px 20px 20px;
+  border-radius:16px 16px 0 0;padding:28px 24px 22px;
   border-bottom:none;
 }
 .result-header h2{
-  font-size:22px;font-weight:900;color:var(--white);
+  font-size:clamp(18px,3vw,26px);font-weight:900;color:var(--white);
   letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px;
 }
 .result-header h2 .accent{color:var(--orange);}
@@ -232,7 +252,7 @@ textarea{resize:none;line-height:1.6;}
 .person-result{
   background:var(--card);
   border:1px solid var(--border);border-top:none;
-  padding:16px 20px;
+  padding:18px 24px;
   animation:fadeUp 0.4s ease both;
 }
 .person-result:last-of-type{border-radius:0 0 16px 16px;}
@@ -255,7 +275,7 @@ textarea{resize:none;line-height:1.6;}
   background:var(--card);
   border:1px solid var(--border);
   border-left:3px solid var(--orange);
-  border-radius:12px;padding:14px 16px;
+  border-radius:12px;padding:16px 18px;
   margin-top:10px;display:flex;gap:12px;align-items:flex-start;
 }
 .tip-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
@@ -269,7 +289,7 @@ textarea{resize:none;line-height:1.6;}
   display:none;animation:fadeUp 0.4s ease both;
 }
 .verdict-card.visible{display:block;}
-.verdict-header{padding:24px 20px 20px;}
+.verdict-header{padding:28px 24px 22px;}
 .verdict-header.fair{background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.05));border-bottom:1px solid rgba(34,197,94,0.2);}
 .verdict-header.suspicious{background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));border-bottom:1px solid rgba(245,158,11,0.2);}
 .verdict-header.very-suspicious{background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(239,68,68,0.05));border-bottom:1px solid rgba(239,68,68,0.2);}
@@ -277,22 +297,119 @@ textarea{resize:none;line-height:1.6;}
 .verdict-badge.fair{color:var(--green);}
 .verdict-badge.suspicious{color:var(--yellow);}
 .verdict-badge.very-suspicious{color:var(--red);}
-.verdict-title{font-size:20px;font-weight:900;color:var(--white);letter-spacing:-0.5px;line-height:1.2;}
-.verdict-body{padding:20px;}
-.verdict-stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
-.verdict-stat{background:#111;border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;}
-.vs-num{font-size:17px;font-weight:900;color:var(--white);letter-spacing:-0.5px;}
+.verdict-title{font-size:clamp(18px,2.5vw,22px);font-weight:900;color:var(--white);letter-spacing:-0.5px;line-height:1.2;}
+.verdict-body{padding:24px;}
+.verdict-stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;}
+.verdict-stat{background:#111;border:1px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center;}
+.vs-num{font-size:18px;font-weight:900;color:var(--white);letter-spacing:-0.5px;}
 .vs-num.green{color:var(--green);}
 .vs-num.red{color:var(--red);}
-.vs-label{font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;}
+.vs-label{font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;}
 .verdict-explain{font-size:13px;line-height:1.7;color:#CCC;margin-bottom:14px;}
 .verdict-rec{
   background:#111;border:1px solid var(--border);
   border-left:3px solid var(--yellow);
-  border-radius:10px;padding:12px 14px;
+  border-radius:10px;padding:14px 16px;
   font-size:12px;line-height:1.5;color:var(--white);
 }
 .verdict-rec strong{font-weight:700;color:var(--yellow);}
+
+/* ════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════ */
+
+/* ── TABLET: 640px+ ── */
+@media (min-width:640px){
+  .wrap{padding:0 32px 80px;}
+
+  /* split screen: bill + roommates side by side */
+  .split-form-cols{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:16px;
+    align-items:start;
+  }
+
+  /* investigate: about + usage side by side */
+  .inv-form-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    align-items:start;
+  }
+
+  .back-btn{padding:24px 0 0;}
+}
+
+/* ── DESKTOP: 900px+ ── */
+@media (min-width:900px){
+  .wrap{padding:0 48px 100px;}
+  nav{padding:32px 0 0;}
+
+  .hero{padding:72px 0 56px;}
+  .hero h1{letter-spacing:-3px;}
+
+  /* mode cards already 2-col at 640px+ — bump padding */
+  .mode-cards{gap:20px;}
+  .mode-card{padding:28px;}
+
+  /* split layout: left sidebar for bill info, right for roommates */
+  .split-form-cols{
+    grid-template-columns:300px 1fr;
+    gap:20px;
+  }
+
+  /* investigate layout */
+  .inv-form-cols{
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+
+  /* results: cap width so it doesn't stretch too wide */
+  .results-wrap,
+  .verdict-card,
+  .tip-box,
+  #split-reset,
+  #inv-reset{
+    max-width:760px;
+  }
+}
+
+/* ── WIDE DESKTOP: 1200px+ ── */
+@media (min-width:1200px){
+  .wrap{padding:0 60px 100px;}
+
+  /* split: 3-col — bill info | roommates | (results live right) */
+  .split-screen-layout{
+    display:grid;
+    grid-template-columns:1fr 480px;
+    gap:32px;
+    align-items:start;
+  }
+  .split-left-col{}
+  .split-right-col{}
+
+  /* investigate: same side-by-side */
+  .inv-screen-layout{
+    display:grid;
+    grid-template-columns:1fr 480px;
+    gap:32px;
+    align-items:start;
+  }
+  .inv-left-col{}
+  .inv-right-col{}
+}
+
+/* ── MOBILE FALLBACK: stacked under 640px ── */
+@media (max-width:639px){
+  .mode-cards{grid-template-columns:1fr;}
+  .split-form-cols,
+  .inv-form-cols{display:block;}
+  .split-form-cols .card,
+  .inv-form-cols .card{margin-bottom:12px;}
+  .split-screen-layout,
+  .inv-screen-layout{display:block;}
+}
 </style>
 </head>
 <body>
@@ -304,7 +421,9 @@ textarea{resize:none;line-height:1.6;}
       <img src="/logo.png" alt="SplitWatt logo" onerror="this.style.display='none'">
       <div class="logo-text">Split<span>Watt</span></div>
     </a>
-    <div class="nav-badge">Beta</div>
+    <div class="nav-right">
+      <div class="nav-badge">Beta</div>
+    </div>
   </nav>
 
   <!-- ══ SCREEN: HOME ══ -->
@@ -321,20 +440,26 @@ textarea{resize:none;line-height:1.6;}
     </div>
     <div class="mode-cards">
       <div class="mode-card" onclick="goTo('screen-split')">
-        <div class="mode-card-icon">📊</div>
-        <div class="mode-card-body">
+        <div class="mode-card-top">
+          <div class="mode-card-icon">📊</div>
           <div class="mode-card-label">Split the bill fairly</div>
-          <div class="mode-card-desc">Bill arrived. Each person describes their usage — AI calculates who owes what.</div>
         </div>
-        <div class="mode-card-arrow">→</div>
+        <div class="mode-card-desc">Bill arrived. Each person describes their usage — AI calculates who owes what.</div>
+        <div class="mode-card-footer">
+          <span class="mode-card-action">Calculate split</span>
+          <span class="mode-card-arrow">→</span>
+        </div>
       </div>
       <div class="mode-card" onclick="goTo('screen-investigate')">
-        <div class="mode-card-icon">🔍</div>
-        <div class="mode-card-body">
+        <div class="mode-card-top">
+          <div class="mode-card-icon">🔍</div>
           <div class="mode-card-label">My units ran out too fast</div>
-          <div class="mode-card-desc">Loaded electricity and it's gone. Find out if your usage accounts for it.</div>
         </div>
-        <div class="mode-card-arrow">→</div>
+        <div class="mode-card-desc">Loaded electricity and it's gone. Find out if your usage accounts for it.</div>
+        <div class="mode-card-footer">
+          <span class="mode-card-action">Investigate</span>
+          <span class="mode-card-arrow">→</span>
+        </div>
       </div>
     </div>
   </div>
@@ -342,122 +467,148 @@ textarea{resize:none;line-height:1.6;}
   <!-- ══ SCREEN: SPLIT ══ -->
   <div class="screen" id="screen-split">
     <button class="back-btn" onclick="goTo('screen-mode')">← Back</button>
-    <div class="card">
-      <div class="card-title">Bill details</div>
-      <div class="input-row">
-        <div>
-          <label>Currency</label>
-          <select id="split-currency">
-            <option value="₦">₦ NGN</option>
-            <option value="$">$ USD</option>
-            <option value="€">€ EUR</option>
-            <option value="£">£ GBP</option>
-            <option value="₹">₹ INR</option>
-            <option value="KES">KES</option>
-            <option value="GHS">GHS</option>
-            <option value="">Other</option>
-          </select>
+
+    <!-- wide layout wrapper -->
+    <div class="split-screen-layout">
+      <div class="split-left-col">
+        <!-- bill + roommates stack in a 2-col grid on tablet -->
+        <div class="split-form-cols">
+          <div class="card" id="split-bill-card">
+            <div class="card-title">Bill details</div>
+            <div class="input-row">
+              <div>
+                <label>Currency</label>
+                <select id="split-currency">
+                  <option value="₦">₦ NGN</option>
+                  <option value="$">$ USD</option>
+                  <option value="€">€ EUR</option>
+                  <option value="£">£ GBP</option>
+                  <option value="₹">₹ INR</option>
+                  <option value="KES">KES</option>
+                  <option value="GHS">GHS</option>
+                  <option value="">Other</option>
+                </select>
+              </div>
+              <div>
+                <label>Total bill amount</label>
+                <input type="number" id="split-bill" placeholder="0.00" min="0" step="0.01">
+              </div>
+            </div>
+            <div class="input-group" style="margin-bottom:0">
+              <label>Billing period (days)</label>
+              <input type="number" id="split-days" value="30" min="1" max="365">
+            </div>
+          </div>
+
+          <div class="card" id="split-people-card">
+            <div class="card-title">Roommates</div>
+            <div id="split-people-list"></div>
+            <button class="btn-add" id="split-add-btn" onclick="addSplitPerson()">+ Add another person</button>
+            <div class="error-msg" id="split-error"></div>
+            <button class="btn-primary" onclick="runSplit()">Calculate fair split →</button>
+          </div>
         </div>
-        <div>
-          <label>Total bill amount</label>
-          <input type="number" id="split-bill" placeholder="0.00" min="0" step="0.01">
+
+        <div class="loading" id="split-loading">
+          <div class="spinner"></div>
+          <p>AI is analysing usage descriptions…</p>
         </div>
       </div>
-      <div class="input-group">
-        <label>Billing period (days)</label>
-        <input type="number" id="split-days" value="30" min="1" max="365">
+
+      <div class="split-right-col">
+        <div class="results-wrap" id="split-results">
+          <div class="result-header">
+            <h2 id="split-headline">Here's who owes <span class="accent">what.</span></h2>
+            <div class="result-meta" id="split-meta"></div>
+          </div>
+          <div id="split-result-list"></div>
+        </div>
+        <div class="tip-box" id="split-tip" style="display:none">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text" id="split-tip-text"></div>
+        </div>
+        <button class="btn-secondary" id="split-reset" style="display:none" onclick="resetSplit()">Start over</button>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title">Roommates</div>
-      <div id="split-people-list"></div>
-      <button class="btn-add" id="split-add-btn" onclick="addSplitPerson()">+ Add another person</button>
-      <div class="error-msg" id="split-error"></div>
-      <button class="btn-primary" onclick="runSplit()">Calculate fair split →</button>
-    </div>
-    <div class="loading" id="split-loading">
-      <div class="spinner"></div>
-      <p>AI is analysing usage descriptions…</p>
-    </div>
-    <div class="results-wrap" id="split-results">
-      <div class="result-header">
-        <h2 id="split-headline">Here's who owes <span class="accent">what.</span></h2>
-        <div class="result-meta" id="split-meta"></div>
-      </div>
-      <div id="split-result-list"></div>
-    </div>
-    <div class="tip-box" id="split-tip" style="display:none">
-      <div class="tip-icon">💡</div>
-      <div class="tip-text" id="split-tip-text"></div>
-    </div>
-    <button class="btn-secondary" id="split-reset" style="display:none" onclick="resetSplit()">Start over</button>
   </div>
 
   <!-- ══ SCREEN: INVESTIGATE ══ -->
   <div class="screen" id="screen-investigate">
     <button class="back-btn" onclick="goTo('screen-mode')">← Back</button>
-    <div class="card">
-      <div class="card-title">About the electricity loaded</div>
-      <div class="input-row">
-        <div>
-          <label>Currency</label>
-          <select id="inv-currency">
-            <option value="₦">₦ NGN</option>
-            <option value="$">$ USD</option>
-            <option value="€">€ EUR</option>
-            <option value="£">£ GBP</option>
-            <option value="₹">₹ INR</option>
-            <option value="KES">KES</option>
-            <option value="GHS">GHS</option>
-            <option value="">Other</option>
-          </select>
+
+    <div class="inv-screen-layout">
+      <div class="inv-left-col">
+        <div class="inv-form-cols">
+          <div class="card" id="inv-about-card">
+            <div class="card-title">About the electricity loaded</div>
+            <div class="input-row">
+              <div>
+                <label>Currency</label>
+                <select id="inv-currency">
+                  <option value="₦">₦ NGN</option>
+                  <option value="$">$ USD</option>
+                  <option value="€">€ EUR</option>
+                  <option value="£">£ GBP</option>
+                  <option value="₹">₹ INR</option>
+                  <option value="KES">KES</option>
+                  <option value="GHS">GHS</option>
+                  <option value="">Other</option>
+                </select>
+              </div>
+              <div>
+                <label>Amount loaded</label>
+                <input type="number" id="inv-amount" placeholder="e.g. 5000" min="0">
+              </div>
+            </div>
+            <div class="input-row" style="margin-bottom:0">
+              <div>
+                <label>Units received (kWh)</label>
+                <input type="number" id="inv-kwh" placeholder="e.g. 60" min="0" step="0.1">
+              </div>
+              <div>
+                <label>Days since loaded</label>
+                <input type="number" id="inv-days" value="30" min="1" max="365">
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="inv-usage-card">
+            <div class="card-title">Describe YOUR usage only</div>
+            <p style="font-size:12px;color:var(--gray);margin-bottom:12px;line-height:1.6">Be specific — appliances, rough hours per day, how often.</p>
+            <div class="input-group">
+              <label>Your usage</label>
+              <textarea id="inv-desc" rows="6" placeholder="e.g. Fan on every night for 8 hours, charged my phone twice a day, used the iron twice a week for 20 minutes, laptop plugged in 4 hours daily..."></textarea>
+            </div>
+            <div class="error-msg" id="inv-error"></div>
+            <button class="btn-primary" onclick="runInvestigation()">Investigate →</button>
+          </div>
         </div>
-        <div>
-          <label>Amount loaded</label>
-          <input type="number" id="inv-amount" placeholder="e.g. 5000" min="0">
+
+        <div class="loading" id="inv-loading">
+          <div class="spinner"></div>
+          <p>Calculating your usage…</p>
         </div>
       </div>
-      <div class="input-row">
-        <div>
-          <label>Units received (kWh)</label>
-          <input type="number" id="inv-kwh" placeholder="e.g. 60" min="0" step="0.1">
+
+      <div class="inv-right-col">
+        <div class="verdict-card" id="inv-verdict">
+          <div class="verdict-header" id="verdict-header">
+            <div class="verdict-badge" id="verdict-badge"></div>
+            <div class="verdict-title" id="verdict-title"></div>
+          </div>
+          <div class="verdict-body">
+            <div class="verdict-stat-row">
+              <div class="verdict-stat"><div class="vs-num" id="vs-loaded"></div><div class="vs-label">Loaded</div></div>
+              <div class="verdict-stat"><div class="vs-num green" id="vs-yours"></div><div class="vs-label">Your usage</div></div>
+              <div class="verdict-stat"><div class="vs-num red" id="vs-unaccounted"></div><div class="vs-label">Unaccounted</div></div>
+            </div>
+            <div class="verdict-explain" id="verdict-explain"></div>
+            <div class="verdict-rec"><strong>Next step:</strong> <span id="verdict-rec"></span></div>
+          </div>
         </div>
-        <div>
-          <label>Days since loaded</label>
-          <input type="number" id="inv-days" value="30" min="1" max="365">
-        </div>
+        <button class="btn-secondary" id="inv-reset" style="display:none" onclick="resetInvestigation()">Start over</button>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title">Describe YOUR usage only</div>
-      <p style="font-size:12px;color:var(--gray);margin-bottom:12px;line-height:1.6">Be specific — appliances, rough hours per day, how often. AI estimates how many units your usage accounts for.</p>
-      <div class="input-group">
-        <label>Your usage</label>
-        <textarea id="inv-desc" rows="5" placeholder="e.g. Fan on every night for 8 hours, charged my phone twice a day, used the iron twice a week for 20 minutes, laptop plugged in 4 hours daily..."></textarea>
-      </div>
-      <div class="error-msg" id="inv-error"></div>
-      <button class="btn-primary" onclick="runInvestigation()">Investigate →</button>
-    </div>
-    <div class="loading" id="inv-loading">
-      <div class="spinner"></div>
-      <p>Calculating your usage…</p>
-    </div>
-    <div class="verdict-card" id="inv-verdict">
-      <div class="verdict-header" id="verdict-header">
-        <div class="verdict-badge" id="verdict-badge"></div>
-        <div class="verdict-title" id="verdict-title"></div>
-      </div>
-      <div class="verdict-body">
-        <div class="verdict-stat-row">
-          <div class="verdict-stat"><div class="vs-num" id="vs-loaded"></div><div class="vs-label">Loaded</div></div>
-          <div class="verdict-stat"><div class="vs-num green" id="vs-yours"></div><div class="vs-label">Your usage</div></div>
-          <div class="verdict-stat"><div class="vs-num red" id="vs-unaccounted"></div><div class="vs-label">Unaccounted</div></div>
-        </div>
-        <div class="verdict-explain" id="verdict-explain"></div>
-        <div class="verdict-rec"><strong>Next step:</strong> <span id="verdict-rec"></span></div>
-      </div>
-    </div>
-    <button class="btn-secondary" id="inv-reset" style="display:none" onclick="resetInvestigation()">Start over</button>
   </div>
 
 </div><!-- /wrap -->
@@ -517,14 +668,12 @@ function showErr(id,msg){
 
 function fmt(n,cur){return `${cur}${n.toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}`;}
 
-// ── COUNTER ANIMATION ──
 function animateCounter(el,target,cur){
   const dur=1200,start=performance.now();
   function step(now){
     const p=Math.min((now-start)/dur,1);
     const ease=1-Math.pow(1-p,3);
-    const val=ease*target;
-    el.textContent=fmt(val,cur);
+    el.textContent=fmt(ease*target,cur);
     if(p<1)requestAnimationFrame(step);
     else el.textContent=fmt(target,cur);
   }
@@ -544,8 +693,8 @@ async function runSplit(){
     if(!desc){showErr('split-error',`Please describe ${name}'s electricity usage.`);return;}
     people.push({name,days:pDays,description:desc});
   }
-  // hide form, show loading
-  document.querySelectorAll('#screen-split .card').forEach(c=>c.style.display='none');
+  document.getElementById('split-bill-card').style.display='none';
+  document.getElementById('split-people-card').style.display='none';
   document.getElementById('split-loading').classList.add('visible');
   try{
     const estimates=await Promise.all(people.map(async p=>{
@@ -582,23 +731,25 @@ async function runSplit(){
         ${p.breakdown?`<div class="pr-desc">${p.breakdown}</div>`:''}
       `;
       list.appendChild(row);
-      // animate after render
       setTimeout(()=>{
         document.getElementById(`bar-${i}`).style.width=`${bw}%`;
         animateCounter(document.getElementById(`amt-${i}`),p.share,cur);
       },100+i*120);
     });
-    const tipEl=document.getElementById('split-tip');
     document.getElementById('split-tip-text').innerHTML=hasGap
       ?`<strong>For ${top.name}:</strong> Your usage is driving most of the bill. Shift high-draw appliances to off-peak hours and unplug idle devices.`
       :`<strong>Balanced house:</strong> Usage is fairly even. Unplugging idle chargers and switching to LED bulbs are the easiest wins.`;
-    tipEl.style.display='flex';
+    document.getElementById('split-tip').style.display='flex';
     document.getElementById('split-results').classList.add('visible');
     document.getElementById('split-reset').style.display='block';
-    setTimeout(()=>window.scrollTo({top:document.getElementById('split-results').offsetTop-20,behavior:'smooth'}),200);
+    // only scroll on mobile; desktop results appear in right col
+    if(window.innerWidth<1200){
+      setTimeout(()=>window.scrollTo({top:document.getElementById('split-results').offsetTop-20,behavior:'smooth'}),200);
+    }
   }catch(e){
     document.getElementById('split-loading').classList.remove('visible');
-    document.querySelectorAll('#screen-split .card').forEach(c=>c.style.display='block');
+    document.getElementById('split-bill-card').style.display='block';
+    document.getElementById('split-people-card').style.display='block';
     showErr('split-error','Something went wrong. Check your connection and try again.');
   }
 }
@@ -607,7 +758,8 @@ function resetSplit(){
   document.getElementById('split-results').classList.remove('visible');
   document.getElementById('split-tip').style.display='none';
   document.getElementById('split-reset').style.display='none';
-  document.querySelectorAll('#screen-split .card').forEach(c=>c.style.display='block');
+  document.getElementById('split-bill-card').style.display='block';
+  document.getElementById('split-people-card').style.display='block';
   document.getElementById('split-bill').value='';
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -618,10 +770,10 @@ async function runInvestigation(){
   const days=parseInt(document.getElementById('inv-days').value)||30;
   const desc=document.getElementById('inv-desc').value.trim();
   const cur=document.getElementById('inv-currency').value;
-  const amount=document.getElementById('inv-amount').value;
   if(!kwh||kwh<=0){showErr('inv-error','Please enter the units (kWh) you loaded.');return;}
   if(!desc){showErr('inv-error','Please describe your usage so we can estimate it.');return;}
-  document.querySelectorAll('#screen-investigate .card').forEach(c=>c.style.display='none');
+  document.getElementById('inv-about-card').style.display='none';
+  document.getElementById('inv-usage-card').style.display='none';
   document.getElementById('inv-loading').classList.add('visible');
   try{
     const r=await fetch('/api/investigate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({description:desc,days,loaded_kwh:kwh})});
@@ -645,10 +797,13 @@ async function runInvestigation(){
     document.getElementById('verdict-rec').textContent=d.recommendation||'Take a photo of your meter and compare readings with your roommate.';
     document.getElementById('inv-verdict').classList.add('visible');
     document.getElementById('inv-reset').style.display='block';
-    setTimeout(()=>window.scrollTo({top:document.getElementById('inv-verdict').offsetTop-20,behavior:'smooth'}),200);
+    if(window.innerWidth<1200){
+      setTimeout(()=>window.scrollTo({top:document.getElementById('inv-verdict').offsetTop-20,behavior:'smooth'}),200);
+    }
   }catch(e){
     document.getElementById('inv-loading').classList.remove('visible');
-    document.querySelectorAll('#screen-investigate .card').forEach(c=>c.style.display='block');
+    document.getElementById('inv-about-card').style.display='block';
+    document.getElementById('inv-usage-card').style.display='block';
     showErr('inv-error','Investigation failed. Check your connection and try again.');
   }
 }
@@ -656,7 +811,8 @@ async function runInvestigation(){
 function resetInvestigation(){
   document.getElementById('inv-verdict').classList.remove('visible');
   document.getElementById('inv-reset').style.display='none';
-  document.querySelectorAll('#screen-investigate .card').forEach(c=>c.style.display='block');
+  document.getElementById('inv-about-card').style.display='block';
+  document.getElementById('inv-usage-card').style.display='block';
   document.getElementById('inv-desc').value='';
   document.getElementById('inv-kwh').value='';
   document.getElementById('inv-amount').value='';
